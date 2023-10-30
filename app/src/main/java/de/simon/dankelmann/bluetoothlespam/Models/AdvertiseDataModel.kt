@@ -28,6 +28,7 @@ class AdvertiseDataModel {
             var builder = AdvertiseData.Builder()
 
             builder.setIncludeDeviceName(includeDeviceName)
+            builder.setIncludeTxPowerLevel(includeTxPower)
 
             services.forEach {
                 if(it.serviceUuid != null){
@@ -38,7 +39,7 @@ class AdvertiseDataModel {
                 }
             }
 
-            builder.setIncludeTxPowerLevel(includeTxPower)
+
 
             manufacturerData.forEach {
                 builder.addManufacturerData(it.manufacturerId, it.manufacturerSpecificData)

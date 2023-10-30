@@ -11,7 +11,12 @@
 
         <item
             android:id="@+id/nav_swift_pair"
-            android:icon="@drawable/window"
+            android:icon="@drawable/windows"
             android:title="@string/menu_swiftPair" />
+
+        <item
+            android:id="@+id/nav_continuity_popup"
+            android:icon="@drawable/apple"
+            android:title="@string/menu_continuityPopUp" />
     </group>
 </menu>

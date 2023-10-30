@@ -9,6 +9,7 @@
 
     <string name="menu_fastPairing">Fast Pairing</string>
     <string name="menu_swiftPair">Swift Pair</string>
+    <string name="menu_continuityPopUp">Apple Device Popup</string>
 
     <string-array name="spinner_entries_tx_power">
         <item name="tx_power_high">High</item>

@@ -3,9 +3,8 @@ package de.simon.dankelmann.bluetoothlespam.AdvertisementSetGenerators
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.AdvertisingSetParameters
-import android.util.Log
-import de.simon.dankelmann.bluetoothlespam.Callbacks.GoogleFastPairAdvertisingCallback
-import de.simon.dankelmann.bluetoothlespam.Callbacks.GoogleFastPairAdvertisingSetCallback
+import de.simon.dankelmann.bluetoothlespam.Callbacks.GenericAdvertisingCallback
+import de.simon.dankelmann.bluetoothlespam.Callbacks.GenericAdvertisingSetCallback
 import de.simon.dankelmann.bluetoothlespam.Helpers.StringHelpers
 import de.simon.dankelmann.bluetoothlespam.Models.AdvertisementSet
 import de.simon.dankelmann.bluetoothlespam.Models.ManufacturerSpecificDataModel
@@ -34,7 +33,7 @@ class SwiftPairAdvertisementSetGenerator : IAdvertisementSetGenerator {
 
         _deviceNames.map {deviceName ->
 
-            var advertisementSet:AdvertisementSet = AdvertisementSet()
+            var advertisementSet = AdvertisementSet()
 
             // Advertise Settings
             advertisementSet.advertiseSettings.advertiseMode = AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY
@@ -51,24 +50,23 @@ class SwiftPairAdvertisementSetGenerator : IAdvertisementSetGenerator {
 
             // AdvertiseData
             advertisementSet.advertiseData.includeDeviceName = false
+            advertisementSet.advertiseData.includeTxPower = false
 
+            // Manufacturer Specific Data
             val manufacturerSpecificData = ManufacturerSpecificDataModel()
             manufacturerSpecificData.manufacturerId = _manufacturerId
             manufacturerSpecificData.manufacturerSpecificData = _prependedBytes.plus(deviceName.toByteArray())
-
             advertisementSet.advertiseData.manufacturerData.add(manufacturerSpecificData)
 
-            advertisementSet.advertiseData.includeTxPower = true
-
             // Scan Response
-            advertisementSet.scanResponse.includeTxPower = true
+            advertisementSet.scanResponse.includeTxPower = false
 
             // General Data
             advertisementSet.deviceName = deviceName
 
             // Callbacks
-            advertisementSet.advertisingSetCallback = GoogleFastPairAdvertisingSetCallback()
-            advertisementSet.advertisingCallback = GoogleFastPairAdvertisingCallback()
+            advertisementSet.advertisingSetCallback = GenericAdvertisingSetCallback()
+            advertisementSet.advertisingCallback = GenericAdvertisingCallback()
 
             advertisementSets.add(advertisementSet)
         }
